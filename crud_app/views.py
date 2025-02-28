@@ -5,3 +5,11 @@ from .forms import EntryForm
 def entry_list(request):
     entry=Crud.objects.all()
     return render(request,'listingpage.html',{'entry':entry})
+def AddUser(request):
+    mydict={}
+    form=EntryForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    mydict['form']=form
+    return render(request,'add.html',mydict)
